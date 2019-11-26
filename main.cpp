@@ -18,7 +18,8 @@ GLfloat cloudSpeed = 0.01f;
 GLfloat carPosition = 1.0f;
 GLfloat carSecondPosition = 1.2f;
 
-bool day = false;
+bool day = true;
+bool night = !day;
 GLfloat sceneryChangeTimer = 1.0f;
 float changeskycolor = 1.0f;
 
@@ -206,6 +207,32 @@ void drawCloud(float speed)
 
     glPushMatrix();
         glColor3ub(255, 255, 240);
+        drawCircle(-0.6f, 0.7f, 0.06f);
+        drawCircle(-0.55f, 0.75f, 0.06f);
+        drawCircle(-0.50f, 0.7f, 0.06f);
+        drawCircle(-0.55f, 0.65f, 0.06f);
+
+        glColor3ub(255, 255, 240);
+        drawCircle(0.7f, 0.7f, 0.06f);
+        drawCircle(0.65f, 0.75f, 0.06f);
+        drawCircle(0.60f, 0.7f, 0.06f);
+        drawCircle(0.65f, 0.65f, 0.06f);
+
+        glColor3ub(255, 255, 240);
+        drawCircle(0.0f, 0.7f, 0.06f);
+        drawCircle(0.05f, 0.75f, 0.06f);
+        drawCircle(0.10f, 0.7f, 0.06f);
+        drawCircle(0.05f, 0.65f, 0.06f);
+    glPopMatrix();
+}
+
+void drawCloudNight(float speed)
+{
+	glLoadIdentity();
+	glTranslatef(speed, 0.0f, 0.0f);
+
+    glPushMatrix();
+        glColor3ub(82, 105, 137);
         drawCircle(-0.6f, 0.7f, 0.06f);
         drawCircle(-0.55f, 0.75f, 0.06f);
         drawCircle(-0.50f, 0.7f, 0.06f);
@@ -1157,7 +1184,7 @@ void display()
             glPopMatrix();
         }
         // Night Code of Scene 1 will be in the else block
-        else
+        else if(night)
         {
             glLoadIdentity();
             glPushMatrix();
@@ -1166,7 +1193,7 @@ void display()
             drawStars();
             drawMoon(sun_moon_position);
 
-            drawCloud(cloudPosition);
+            drawCloudNight(cloudPosition);
 
             drawLeftTree();
             drawRightTree();
@@ -1183,6 +1210,7 @@ void display()
 
             drawRoad();
             drawCar();
+            street_light();
             drawSecondCar();
 
             glPopMatrix();
@@ -1256,6 +1284,21 @@ void update(int value)
 
 }
 
+
+/**
+ * Function to handle when any keyboard key is pressed
+ */
+void handleKeypress(unsigned char key, int x, int y)
+{
+    if(key == 'n'){
+        night = true;
+        day = false;
+    }else if(key == 'd'){
+        day = true;
+        night = false;
+    }
+}
+
 void init()
 {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -1272,6 +1315,7 @@ int main(int argc, char** argv)
     glutCreateWindow("CITY VIEW");
     glutDisplayFunc(display);
 
+    glutKeyboardFunc(handleKeypress);
     glutTimerFunc(1000, update, 0);
     //glutMouseFunc(mouseHandler);
 
