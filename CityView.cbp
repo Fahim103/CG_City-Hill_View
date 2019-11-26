@@ -42,7 +42,14 @@
 			<Add library="gdi32" />
 			<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/lib" />
 		</Linker>
+		<Unit filename="Scene_1_Hospital_Pharmacy.h" />
+		<Unit filename="Scene_1_Left_Buildings.h" />
+		<Unit filename="Scene_1_Road_Cars.h" />
+		<Unit filename="Scene_1_Sky.h" />
+		<Unit filename="Scene_1_Sun_Moon.h" />
+		<Unit filename="Scene_1_Tree_Bushes.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="utilities.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
