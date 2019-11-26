@@ -6,37 +6,60 @@
 #include <cstdlib>
 #include<cstdio>
 #include<cmath>
+#include<string>
 
 using namespace std;
 
 GLfloat sun_moon_position = 0.0f;
-GLfloat sun_moon_speed = 0.005f;
+GLfloat sun_moon_speed = 0.01f;
 
 GLfloat cloudPosition = 0.0f;
-GLfloat cloudSpeed = 0.005f;
+GLfloat cloudSpeed = 0.01f;
 
-void drawSky()
+bool day = true;
+
+GLfloat sceneryChangeTimer = 1.0f;
+float changeskycolor = 1.0f;
+
+void drawSkyDay()
 {
     glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
     glPushMatrix();
         // This is the sky.
         glBegin(GL_QUADS);
-        //glColor3f(0.0f, 0.8f, 1.0f);
-
         glColor3ub(77,195,255);
         glVertex2f(-1.0f, -0.4f);
-
-        glColor3ub(230,168,62);
         glVertex2f(-1.0f, 1.0f);
-
-//        glColor3ub(77,195,255);
         glVertex2f(1.0f, 1.0f);
-        //glColor3ub(77,195,255);
-        glColor3ub(230,168,62);
         glVertex2f(1.0f, -0.4f);
     glEnd();
+    glPopMatrix();
+}
 
+void drawString(float x, float y, char *string)
+{
+    glRasterPos2f(x, y);
+
+    for (char* c=string; *c != '\0'; c++)
+    {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c); // Updates the position
+    }
+}
+
+void drawSkyNight()
+{
+    glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+    glPushMatrix();
+        // This is the sky.
+        glBegin(GL_QUADS);
+        glColor3ub(44, 66, 105);
+        glVertex2f(-1.0f, -0.4f);
+        glVertex2f(-1.0f, 1.0f);
+        glVertex2f(1.0f, 1.0f);
+        glVertex2f(1.0f, -0.4f);
+    glEnd();
     glPopMatrix();
 }
 
@@ -67,6 +90,32 @@ void drawSun(float speed)
     glPopMatrix();
 }
 
+void drawMoon(float speed)
+{
+    glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	//glTranslatef(0.0f, speed, 0.0f);
+    glPushMatrix();
+        glColor3ub(248, 248, 255);
+        drawCircle(0.6f, 0.8f, 0.09f);
+    glPopMatrix();
+}
+
+void drawStars()
+{
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glPushMatrix();
+    glColor3ub(248, 248, 255);
+        glBegin(GL_POLYGON);
+            glVertex2f(0.1f, 0.6f);
+            glVertex2f(0.0f, 0.7f);
+            glVertex2f(-0.1f, 0.5f);
+            glVertex2f(0.0f, 0.4f);
+        glEnd();
+    glPopMatrix();
+}
+
 void drawCloud(float speed)
 {
 	glLoadIdentity();
@@ -93,7 +142,7 @@ void drawBushes()
     glLoadIdentity();
 
     glPushMatrix();
-        glColor3ub(22, 201,123);
+        glColor3ub(10, 91, 6);
         drawCircle(-0.2f, -.4f, .13f);
         drawCircle(0.0f, -.38f, .10f);
         drawCircle(0.2f, -.4f, .13f);
@@ -107,7 +156,7 @@ void drawLeftTree()
 
     glPushMatrix();
         // Tree Trunk
-        glColor3ub(109,76,65);
+        glColor3ub(112, 91, 3);
         glBegin(GL_TRIANGLES);
             glVertex2f(-0.22f, -.35f);
             glVertex2f(-0.18f, -.35f);
@@ -115,7 +164,7 @@ void drawLeftTree()
         glEnd();
 
         // Tree Leafs
-        glColor3ub(178,255,89);
+        glColor3ub(5, 127, 34);
 
         glBegin(GL_TRIANGLES);
             glVertex2f(-0.26, -0.10);
@@ -144,7 +193,7 @@ void drawRightTree()
 
     glPushMatrix();
         // Tree Trunk
-        glColor3ub(109,76,65);
+        glColor3ub(112, 91, 3);
         glBegin(GL_TRIANGLES);
             glVertex2f(0.22, -.35);
             glVertex2f(0.18, -.35);
@@ -152,7 +201,7 @@ void drawRightTree()
         glEnd();
 
         // Tree Leafs
-        glColor3ub(178,255,89);
+        glColor3ub(5, 127, 34);
 
         glBegin(GL_TRIANGLES);
             glVertex2f(0.26, -0.10);
@@ -182,7 +231,7 @@ void drawMiddleTree()
 
     glPushMatrix();
         // Tree Trunk
-        glColor3ub(109,76,65);
+        glColor3ub(112, 91, 3);
         glBegin(GL_TRIANGLES);
             glVertex2f(-0.01f, -.35f);
             glVertex2f(0.02f, -.35f);
@@ -190,7 +239,7 @@ void drawMiddleTree()
         glEnd();
 
         // Tree Leafs
-        glColor3ub(178,255,89);
+        glColor3ub(21, 86, 7);
 
         glBegin(GL_TRIANGLES);
             glVertex2f(-0.05, -0.15);
@@ -421,63 +470,52 @@ void drawRoad()
             glEnd();
 
 
-                glBegin(GL_POLYGON);
-        glColor3ub(209,211,212);
+        glBegin(GL_POLYGON);
+            glColor3ub(209,211,212);
 
             glVertex2f(0.2f,-0.75f);
             glVertex2f(0.4f,-0.75f);
             glVertex2f(0.4f,-0.80f);
             glVertex2f(0.2f,-0.80f);
+        glEnd();
 
-            glEnd();
 
-
-                glBegin(GL_POLYGON);
+        glBegin(GL_POLYGON);
         glColor3ub(209,211,212);
-
             glVertex2f(0.2f,-0.85f);
             glVertex2f(0.4f,-0.85f);
             glVertex2f(0.4f,-0.90f);
             glVertex2f(0.2f,-0.90f);
+        glEnd();
 
-            glEnd();
-
-
-                glBegin(GL_POLYGON);
+        glBegin(GL_POLYGON);
         glColor3ub(209,211,212);
-
             glVertex2f(0.2f,-0.95f);
             glVertex2f(0.4f,-0.95f);
             glVertex2f(0.4f,-1);
             glVertex2f(0.2f,-1);
-
-            glEnd();
-
+        glEnd();
 
             //MID_LINE
 
-                   glBegin(GL_POLYGON);
+        glBegin(GL_POLYGON);
         glColor3ub(209,211,212);
-
             glVertex2f(0.5f,-0.75f);
             glVertex2f(0.65f,-0.75f);
             glVertex2f(0.65f,-0.80f);
             glVertex2f(0.5f,-0.80f);
-
             glEnd();
 
 
-                   glBegin(GL_POLYGON);
+        glBegin(GL_POLYGON);
         glColor3ub(209,211,212);
-
             glVertex2f(0.8f,-0.75f);
             glVertex2f(0.95f,-0.75f);
             glVertex2f(0.95f,-0.80f);
             glVertex2f(0.8f,-0.80f);
-
             glEnd();
 
-                   glBegin(GL_POLYGON);
+        glBegin(GL_POLYGON);
         glColor3ub(209,211,212);
 
             glVertex2f(-0.1f,-0.75f);
@@ -507,7 +545,7 @@ void drawSecondBuilding()
     glLoadIdentity();
 
     glPushMatrix();
-        glColor3ub(0,77,153);
+        glColor3ub(25,61,79);
         glBegin(GL_QUADS);
             glVertex2f(-0.42f,-0.41f);
             glVertex2f(-0.42f,0.61f);
@@ -571,13 +609,15 @@ void drawSecondBuilding()
         glEnd();
     glPopMatrix();
 }
+
 void drawfirstbuilding()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     glPushMatrix();
-        glColor3ub(204,102,0);
+        //glColor3ub(204,102,0);
+        glColor3ub(127, 87, 56);
         glBegin(GL_POLYGON);
             glVertex2f(-0.95f,-0.41f);
             glVertex2f(-0.65f, -0.41f);
@@ -586,7 +626,7 @@ void drawfirstbuilding()
         glEnd();
         //bottom1
         glBegin(GL_POLYGON);
-            glColor3ub(102,51,0);
+            glColor3ub(102,62,27);
             glVertex2f(-0.64f,0.78f);
             glVertex2f(-0.64f, 0.8f);
             glVertex2f(-0.96f,0.8f);
@@ -594,14 +634,14 @@ void drawfirstbuilding()
         glEnd();
         //bottom2
         glBegin(GL_POLYGON);
-            glColor3ub(150,75,0);
+            glColor3ub(122, 63, 10);
             glVertex2f(-0.67f,0.8f);
             glVertex2f(-0.67f, 0.85f);
             glVertex2f(-0.93f,0.85f);
             glVertex2f(-0.93f, 0.8f);
         glEnd();
         glBegin(GL_POLYGON);
-            glColor3ub(252,127,0);
+            glColor3ub(201,122,50);
             glVertex2f(-0.72f,0.85f);
             glVertex2f(-0.72f, 0.9f);
             glVertex2f(-0.88f,0.9f);
@@ -609,7 +649,7 @@ void drawfirstbuilding()
         glEnd();
         //building topmost
         glBegin(GL_POLYGON);
-            glColor3ub(252,192,88);
+            glColor3ub(232,158,91);
             glVertex2f(-0.74f,0.9f);
             glVertex2f(-0.74f, 0.92f);
             glVertex2f(-0.86f,0.92f);
@@ -688,7 +728,7 @@ void drawThirdBuilding()
     glLoadIdentity();
 
     glPushMatrix();
-        glColor3ub(61,110,209);
+        glColor3ub(12, 79, 102);
         glBegin(GL_QUADS);
             glVertex2f(-0.42f,-0.41f);
             glVertex2f(-0.22f,-0.41f);
@@ -696,7 +736,7 @@ void drawThirdBuilding()
             glVertex2f(-0.42,0.76);
         glEnd();
 
-        glColor3ub(35,63,120);
+        glColor3ub(7, 43, 61);
         glBegin(GL_QUADS);
             glVertex2f(-0.22f,-0.41f);
             glVertex2f(-0.17f,-0.41f);
@@ -705,6 +745,7 @@ void drawThirdBuilding()
         glEnd();
     glPopMatrix();
 }
+
 void mouseHandler(int button, int state, int mousex, int mousey)
 {
 
@@ -726,7 +767,7 @@ void drawAxis()
 
 }
 
-void drawFourthBuilding()
+void drawHospital()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -735,168 +776,222 @@ void drawFourthBuilding()
     //front side
     glColor3ub(76,99,35);
     glBegin(GL_QUADS);
-    glVertex2f(0.75f,-0.41f);
+    glVertex2f(0.60f,-0.41f);
     glVertex2f(0.98f,-0.41f);
     glVertex2f(0.98f,0.8f);
-    glVertex2f(0.75f,0.8f);
+    glVertex2f(0.60f,0.8f);
     glEnd();
 
     //Left side
     glColor3ub(6,130,97);
     glBegin(GL_QUADS);
-    glVertex2f(0.68f,-0.41f);
-    glVertex2f(0.75f,-0.41f);
-    glVertex2f(0.75f,0.8f);
-    glVertex2f(0.68f,0.75f);
+    glVertex2f(0.53f,-0.41f);
+    glVertex2f(0.60f,-0.41f);
+    glVertex2f(0.60f,0.8f);
+    glVertex2f(0.53f,0.69f);
     glEnd();
 
-    //Window1
-    /*glColor3ub(230,168,62);
-    glBegin(GL_QUADS);
-    glVertex2f(0.85f,0.56f);
-    glVertex2f(0.95f,0.56f);
-    glColor3ub(77,195,255);
+    //Hospital Name
+    glColor3ub(230,123,100);
+    glBegin(GL_POLYGON);
+    glVertex2f(0.63f,0.65f);
     glVertex2f(0.95f,0.65f);
-    glVertex2f(0.85f,0.65f);
-    glEnd();*/
+    glVertex2f(0.95f,0.76f);
+    glVertex2f(0.63f,0.76f);
+    glEnd();
 
-    //windows
+    glColor3ub(0, 0, 0);
+    drawString(0.69f, 0.69f, "General Hospital");
+
+    //big window
     float gap=0.0f;
     for(int i=1;i<6;i++)
     {
         glColor3ub(230,168,62);
         glBegin(GL_QUADS);
-        glVertex2f(0.85f,0.56f -gap);
-        glVertex2f(0.95f,0.56f-gap);
-        glColor3ub(77,195,255);
-        glVertex2f(0.95f,0.65f-gap);
-        glVertex2f(0.85f,0.65f-gap);
+        glVertex2f(0.85f,0.53f-gap);
+        glVertex2f(0.95f,0.53f-gap);
+        glColor3ub(77,195,255-gap);
+        glVertex2f(0.95f,0.62f-gap);
+        glVertex2f(0.85f,0.62f-gap);
         glEnd();
         gap+=0.17;
     }
 
 
-
-
-    glPopMatrix();
-}
-
-void drawFifthBuilding()
-{
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glPushMatrix();
-    //front side
-    glColor3ub(7,71,62);
-    glBegin(GL_POLYGON);
-    glVertex2f(0.58f,-0.41f);
-    glVertex2f(0.82f,-0.41f);
-    glVertex2f(0.82f,0.65f);
-    glVertex2f(0.58f,0.65f);
-    glEnd();
-
-    //Left side
-    glBegin(GL_POLYGON);
-    glColor3ub(7,43,61);
-    glVertex2f(0.47f,-0.41f);//0.43
-    glVertex2f(0.58f,-0.41f);//00.43
-    glVertex2f(0.58f,0.65f);
-    glVertex2f(0.47f,0.59f);
-    glEnd();
-
-    //windows
-    float gapy=0.0f,gapx=0.0f;
+    //small windows
+    float gap1=0.0f,gap2=0.07;
     for(int i=1;i<6;i++)
     {
         glColor3ub(230,168,62);
         glBegin(GL_QUADS);
-        glVertex2f(0.61f,0.5f-gapy);
-        glVertex2f(0.68f,0.5f-gapy);
+        glVertex2f(0.65f,0.53f -gap1);
+        glVertex2f(0.71f,0.53f-gap1);
         glColor3ub(77,195,255);
-        glVertex2f(0.68f,0.6f-gapy);
-        glVertex2f(0.61f,0.6f-gapy);
+        glVertex2f(0.71f,0.62f-gap1);
+        glVertex2f(0.65f,0.62f-gap1);
         glEnd();
-        gapy+=0.18f;
+
+        glColor3ub(230,168,62);
+        glBegin(GL_QUADS);
+        glVertex2f(0.65f+gap2,0.53f-gap1);
+        glVertex2f(0.71f+gap2,0.53f-gap1);
+        glColor3ub(77,195,255);
+        glVertex2f(0.71f+gap2,0.62f-gap1);
+        glVertex2f(0.65f+gap2,0.62f-gap1);
+        glEnd();
+
+        gap1+=0.17;
     }
-    /*
-    for(int i=1;i<6;i++)
-    {
-        glColor3ub(230,168,62);
-        glBegin(GL_QUADS);
-        glVertex2f(0.71f+gapx,0.5f);
-        glVertex2f(0.78f+gapx,0.5f);
-        glColor3ub(77,195,255);
-        glVertex2f(0.78f+gapx,0.6f);
-        glVertex2f(0.71f+gapx,0.6f);
-        glEnd();
-        gapx+=0.1f;
-    }*/
-    /*glColor3ub(230,168,62);
+
+    //Door
     glBegin(GL_QUADS);
-    glVertex2f(0.61f,0.5f);
-    glVertex2f(0.68f,0.5f);
+    glColor3ub(230,168,62);
+    glVertex2f(0.73f,-0.41f);
+    glVertex2f(0.90f,-0.41f);
     glColor3ub(77,195,255);
-    glVertex2f(0.68f,0.6f);
-    glVertex2f(0.61f,0.6f);
-    glEnd();*/
+    glVertex2f(0.90f,-0.20f);
+    glVertex2f(0.73f,-0.20f);
+    glEnd();
 
 
     glPopMatrix();
 }
 
-void drawSixthBuilding()
+void drawPharmacy()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glPushMatrix();
-    // Front Side
-    glColor3ub(71,73,5);
-    glBegin(GL_POLYGON);
+
+    //front side
+    glColor3ub(35,76,150);
+    glBegin(GL_QUADS);
     glVertex2f(0.36f,-0.41f);
-    glVertex2f(0.61f,-0.41f);
-    glVertex2f(0.61f,0.43f);
-    glVertex2f(0.36f,0.43f);
+    glVertex2f(0.64f,-0.41f);
+    glVertex2f(0.64f,-0.08f);
+    glVertex2f(0.36f,-0.08f);
     glEnd();
 
     //Left Side
-
-    glColor3ub(71,3,5);
-    glBegin(GL_POLYGON);
+    glColor3ub(0,10,50);
+    glBegin(GL_QUADS);
     glVertex2f(0.3f,-0.41f);
     glVertex2f(0.36f,-0.41f);
-    glVertex2f(0.36,0.43f);
-    glVertex2f(0.3f,0.39f);
+    glVertex2f(0.36f,-0.01f);
+    glVertex2f(0.3f,-0.08f);
+    glEnd();
+
+    //Name
+    glColor3ub(0,10,50);
+    glBegin(GL_QUADS);
+    glVertex2f(0.36f,-0.08f);
+    glVertex2f(0.64f,-0.08f);
+    glVertex2f(0.64f,-0.01f);
+    glVertex2f(0.36f,-0.01f);
     glEnd();
 
 
-
-
+    //Mirror
+    glColor3ub(230,168,62);
+    glBegin(GL_QUADS);
+    glVertex2f(0.38f,-0.28f);
+    glVertex2f(0.62f,-0.28f);
+    glColor3ub(77,195,255);
+    glVertex2f(0.62f,-0.15f);
+    glVertex2f(0.38f,-0.15f);
+    glEnd();
     glPopMatrix();
+
 }
+
 
 void display()
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    drawSky();
-    drawSun(sun_moon_position);
-    drawCloud(cloudPosition);
+    if (sceneryChangeTimer > 0)
+    {
+        if(day)
+        {
+            glLoadIdentity();
+            glPushMatrix();
 
-    drawLeftTree();
-    drawRightTree();
-    drawMiddleTree();
+            drawSkyDay();
+            drawSun(sun_moon_position);
+            drawCloud(cloudPosition);
 
-    drawBushes();
+            drawLeftTree();
+            drawRightTree();
+            drawMiddleTree();
 
-    drawfirstbuilding();
-    drawSecondBuilding();
-    drawThirdBuilding();
+            drawBushes();
 
-    drawFourthBuilding();
-    drawFifthBuilding();
-    drawSixthBuilding();
+            drawfirstbuilding();
+            drawSecondBuilding();
+            drawThirdBuilding();
 
-    drawRoad();
+            drawHospital();
+            drawPharmacy();
+
+            drawRoad();
+            glPopMatrix();
+        }
+        // Night Code of Scene 1 will be in the else block
+        else
+        {
+            glLoadIdentity();
+            glPushMatrix();
+
+            drawSkyNight();
+            drawStars();
+            drawMoon(sun_moon_position);
+            drawCloud(cloudPosition);
+
+            drawLeftTree();
+            drawRightTree();
+            drawMiddleTree();
+
+            drawBushes();
+
+            drawfirstbuilding();
+            drawSecondBuilding();
+            drawThirdBuilding();
+
+            drawHospital();
+            drawPharmacy();
+
+            drawRoad();
+            glPopMatrix();
+        }
+
+    }
+
+
+    if (sceneryChangeTimer > 200)
+    {
+        glScissor(0,0,1.0f,1.0f);
+        glEnable(GL_SCISSOR_TEST);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // (or whatever buffer you want to clear)
+        glDisable(GL_SCISSOR_TEST);
+
+        glLoadIdentity();
+        glPushMatrix();
+
+        drawRoad();
+
+        glPopMatrix();
+    }
+
+    if(sceneryChangeTimer > 400)
+    {
+        sceneryChangeTimer = 0.0f;
+    }
+
+
+    sceneryChangeTimer++;
     //drawAxis();
+    cout<<"Sceneary Change Timer : " << sceneryChangeTimer << endl;
     glFlush();
 }
 
@@ -908,7 +1003,15 @@ void update(int value)
     cloudPosition += cloudSpeed;
 
     if(sun_moon_position < -1.2f)
-        sun_moon_position = 1.2f;
+    {
+        sun_moon_position = 1.01f;
+        if(day)
+        {
+            day = false;
+        }else{
+            day = true;
+        }
+    }
 
     if(cloudPosition > 2.1f)
         cloudPosition = -1.5f;
@@ -935,6 +1038,9 @@ int main(int argc, char** argv)
 
     glutTimerFunc(1000, update, 0);
     //glutMouseFunc(mouseHandler);
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);// you enable blending function
 
     init();
     glutMainLoop();
