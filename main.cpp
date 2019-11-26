@@ -16,6 +16,7 @@ GLfloat sun_moon_speed = 0.01f;
 GLfloat cloudPosition = 0.0f;
 GLfloat cloudSpeed = 0.01f;
 GLfloat carPosition = 1.0f;
+GLfloat carSecondPosition = 1.2f;
 
 bool day = false;
 GLfloat sceneryChangeTimer = 1.0f;
@@ -963,6 +964,165 @@ void drawCar()
 
 }
 
+void drawSecondCar()
+{
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    glPushMatrix();
+    glTranslatef(carSecondPosition,0.0f, 0.0f);
+        //above part
+        glBegin(GL_POLYGON);
+        glColor3ub(12,163,155);
+
+        glVertex2f(-0.63f,-0.77f);
+        glVertex2f(-0.45f,-0.77f);
+        glVertex2f(-0.43f,-0.86f);
+        glVertex2f(-0.65f,-0.86f);
+
+            glEnd();
+        //right window
+        glBegin(GL_POLYGON);
+        glColor3ub(242,155,83);
+
+        glVertex2f(-0.53f,-0.78f);
+        glVertex2f(-0.46f,-0.78f);
+        glVertex2f(-0.45f,-0.85f);
+        glVertex2f(-0.53f,-0.85f);
+
+            glEnd();
+
+        //left window
+        glBegin(GL_POLYGON);
+        glColor3ub(242,155,83);
+
+        glVertex2f(-0.55f,-0.78f);
+        glVertex2f(-0.62f,-0.78f);
+        glVertex2f(-0.63f,-0.85f);
+        glVertex2f(-0.55f,-0.85f);
+
+            glEnd();
+
+
+        //bottom part
+        glBegin(GL_POLYGON);
+        glColor3ub(36,119,117);
+
+        glVertex2f(-0.70f,-0.86f);
+        glVertex2f(-0.38f,-0.86f);
+        glVertex2f(-0.38f,-0.93f);
+        glVertex2f(-0.70f,-0.93f);
+
+            glEnd();
+
+
+        //CHAKA_01
+        glBegin(GL_POLYGON);
+        glColor3ub(40,37,37);
+
+        float theta;
+        int i;
+        for(i=0;i<360;i++)
+            {
+            theta= i*3.142/180;
+            glVertex2f(-0.63+0.03*sin(theta),-0.93+0.03*cos(theta));
+
+            }
+        glEnd();
+
+          //CHAKA_02
+        glBegin(GL_POLYGON);
+        glColor3ub(40,37,37);
+
+        for(i=0;i<360;i++)
+            {
+            theta= i*3.142/180;
+            glVertex2f(-0.45+0.03*sin(theta),-0.93+0.03*cos(theta));
+
+            }
+        glEnd();
+
+
+
+
+    glPopMatrix();
+
+}
+
+
+void street_light()
+{
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    glPushMatrix();
+
+        //First_street_light
+        glBegin(GL_POLYGON);
+        glColor3ub(150,148,146);
+
+        glVertex2f(-0.70f,-0.46f);
+        glVertex2f(-0.68f,-0.46f);
+        glVertex2f(-0.68f,0.20f);
+        glVertex2f(-0.70f,0.20f);
+
+            glEnd();
+
+        glBegin(GL_POLYGON);
+        glColor3ub(47,48,47);
+
+        glVertex2f(-0.68f,0.20f);
+        glVertex2f(-0.70f,0.20f);
+        glVertex2f(-0.65f,0.35f);
+        glVertex2f(-0.62f,0.35f);
+
+            glEnd();
+
+        glBegin(GL_POLYGON);
+        glColor3ub(242,195,48);
+
+        glVertex2f(-0.65f,0.35f);
+        glVertex2f(-0.62f,0.35f);
+        glVertex2f(-0.62f,0.38f);
+        glVertex2f(-0.65f,0.38f);
+
+            glEnd();
+
+
+
+        //Second_street_light
+        glBegin(GL_POLYGON);
+        glColor3ub(150,148,146);
+
+        glVertex2f(0.70f,-0.46f);
+        glVertex2f(0.68f,-0.46f);
+        glVertex2f(0.68f,0.20f);
+        glVertex2f(0.70f,0.20f);
+
+            glEnd();
+
+        glBegin(GL_POLYGON);
+        glColor3ub(47,48,47);
+
+        glVertex2f(0.68f,0.20f);
+        glVertex2f(0.70f,0.20f);
+        glVertex2f(0.74f,0.35f);
+        glVertex2f(0.71f,0.35f);
+
+            glEnd();
+
+        glBegin(GL_POLYGON);
+        glColor3ub(242,195,48);
+
+        glVertex2f(0.74f,0.35f);
+        glVertex2f(0.71f,0.35f);
+        glVertex2f(0.71f,0.38f);
+        glVertex2f(0.74f,0.38f);
+
+            glEnd();
+     glPopMatrix();
+
+}
 
 void display()
 {
@@ -1022,6 +1182,8 @@ void display()
             drawPharmacy();
 
             drawRoad();
+            drawCar();
+            drawSecondCar();
 
             glPopMatrix();
         }
@@ -1052,7 +1214,7 @@ void display()
     */
     //sceneryChangeTimer++;
     //drawAxis();
-    cout<<"Sceneary Change Timer : " << sceneryChangeTimer << endl;
+    //cout<<"Sceneary Change Timer : " << sceneryChangeTimer << endl;
     glFlush();
 }
 
@@ -1082,7 +1244,14 @@ void update(int value)
     if(carPosition > 1.5f){
         carPosition = -1.5f;
     }
+
+
+    if(carSecondPosition < -1.5){
+        carSecondPosition = 1.5f;
+    }
+
     carPosition += 0.1f;
+	carSecondPosition -= 0.08f;
 	glutTimerFunc(100, update, 0);
 
 }
