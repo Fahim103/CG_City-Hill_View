@@ -9,12 +9,18 @@
 #include<string>
 
 // Add the Header Files
+
+// Scene 1 Header Files
 #include "Scene_1_Sky.h" // This file includes the utilities header, so subsequent files can use utilities as well without including
 #include "Scene_1_Left_Buildings.h"
 #include "Scene_1_Hospital_Pharmacy.h"
 #include "Scene_1_Sun_Moon.h"
 #include "Scene_1_Tree_Bushes.h"
 #include "Scene_1_Road_Cars.h"
+
+// Scene 2 Header Files
+#include "Scene_2_Sea.h"
+#include "Scene_2_Ship.h"
 
 using namespace std;
 
@@ -41,7 +47,7 @@ void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //if (sceneryChangeTimer > 0)
+    if (sceneryChangeTimer > 0)
     {
         if(day)
         {
@@ -103,32 +109,35 @@ void display()
 
             glPopMatrix();
         }
-
     }
 
-    /*
     if (sceneryChangeTimer > 200)
     {
-        glScissor(0,0,1.0f,1.0f);
+        //glScissor(0,0,1.0f,1.0f);
         glEnable(GL_SCISSOR_TEST);
+        glScissor(0,0,1.0f,1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // (or whatever buffer you want to clear)
         glDisable(GL_SCISSOR_TEST);
+
+        glClear(GL_DOUBLEBUFFER);
+        glClear(GL_POLYGON);
 
         glLoadIdentity();
         glPushMatrix();
 
-        drawRoad();
+        drawSea();
+        drawShip();
 
         glPopMatrix();
     }
 
     if(sceneryChangeTimer > 400)
     {
-        sceneryChangeTimer = 0.0f;
+        //sceneryChangeTimer = 1.0f;
+        exit(0); // Exit the application
     }
 
-    */
-    //sceneryChangeTimer++;
+    sceneryChangeTimer++;
     //drawAxis();
     //cout<<"Sceneary Change Timer : " << sceneryChangeTimer << endl;
     glFlush();
