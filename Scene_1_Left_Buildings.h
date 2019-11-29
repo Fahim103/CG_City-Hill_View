@@ -187,7 +187,7 @@ void drawThirdBuilding()
     glLoadIdentity();
 
     glPushMatrix();
-        glColor3ub(12, 79, 102);
+        glColor3ub(61,110,209);
         glBegin(GL_QUADS);
             glVertex2f(-0.42f,-0.41f);
             glVertex2f(-0.22f,-0.41f);
@@ -195,12 +195,48 @@ void drawThirdBuilding()
             glVertex2f(-0.42,0.76);
         glEnd();
 
-        glColor3ub(7, 43, 61);
+        glColor3ub(35,63,120);
         glBegin(GL_QUADS);
             glVertex2f(-0.22f,-0.41f);
             glVertex2f(-0.17f,-0.41f);
             glVertex2f(-0.17f,0.73);
             glVertex2f(-0.22,0.76);
         glEnd();
+
+        // Windows
+        float gap =0.0f, gap1= 0.01f;
+        for(int i=0;i<4;i++){
+            //rwindow
+            glBegin(GL_POLYGON);
+                glColor3ub(230,168,62);
+                glVertex2f(-0.25f,0.6f-gap);
+                glVertex2f(-0.25f, 0.65f-gap);
+                glColor3ub(77,195,255);
+                glVertex2f(-0.3f,0.65f-gap);
+                glVertex2f(-0.3f, 0.6f-gap);
+            glEnd();
+
+            //leftwindow
+            glBegin(GL_POLYGON);
+                glColor3ub(230,168,62);
+                glVertex2f(-0.34f-gap1,0.6f-gap);
+                glVertex2f(-0.34f-gap1, 0.65f-gap);
+                glColor3ub(77,195,255);
+                glVertex2f(-0.39f-gap1,0.65f-gap);
+                glVertex2f(-0.39f-gap1, 0.6f-gap);
+            glEnd();
+            gap= gap+0.17;
+        }
+
+        //door
+        glBegin(GL_POLYGON);
+            glColor3ub(230,168,62);
+            glVertex2f(-0.28f,-0.41f);
+            glVertex2f(-0.28f, -0.1f);
+            glColor3ub(77,195,255);
+            glVertex2f(-0.38f,-0.1f);
+            glVertex2f(-0.38f, -0.41f);
+        glEnd();
     glPopMatrix();
+
 }

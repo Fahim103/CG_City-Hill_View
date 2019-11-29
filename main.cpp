@@ -144,14 +144,14 @@ void update(int value)
     if(sun_moon_position < -1.2f)
     {
         sun_moon_position = 1.01f;
-        /*
         if(day)
         {
             day = false;
-        }else{
+            night = true;
+        }else if(night){
+            night = false;
             day = true;
         }
-        */
     }
 
     if(cloudPosition > 2.1f)
@@ -160,7 +160,6 @@ void update(int value)
     if(firstCarPosition > 1.5f){
         firstCarPosition = -1.5f;
     }
-
 
     if(secondCarPosition < -1.5){
         secondCarPosition = 1.5f;
