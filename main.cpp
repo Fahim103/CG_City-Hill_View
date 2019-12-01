@@ -177,6 +177,7 @@ void display()
             drawResturant1();
             drawResturant2();
 
+            drawRoadHillView();
             drawSea();
             drawShip();
 
