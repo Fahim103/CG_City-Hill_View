@@ -1,6 +1,4 @@
-//#include "utilities.h"
-
-void drawSunCityView(float speed)
+void drawSunHillView(float speed)
 {
     glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -11,13 +9,13 @@ void drawSunCityView(float speed)
     glPopMatrix();
 }
 
-void drawMoonCityView(float speed)
+void drawMoonHillView(float speed)
 {
     glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//glTranslatef(0.0f, speed, 0.0f);
     glPushMatrix();
         glColor3ub(248, 248, 255);
-        drawCircle(0.4f, 0.8f, 0.09f);
+        drawCircle(0.5f, 0.88f, 0.09f);
     glPopMatrix();
 }

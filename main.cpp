@@ -19,23 +19,42 @@
 #include "Scene_1_Road_Cars.h"
 
 // Scene 2 Header Files
+#include "Scene_2_Sky.h"
+#include "Scene_2_Sun_Moon.h"
 #include "Scene_2_Sea.h"
 #include "Scene_2_Ship.h"
+#include "Scene_2_Restaurant.h"
+#include "Scene_2_Hill.h"
+#include "Scene_2_Land.h"
+#include "Scene_2_Road_Cars.h"
 
 using namespace std;
 
-GLfloat sun_moon_position = 0.0f;
-GLfloat sun_moon_speed = 0.01f;
+// City View Variables
+GLfloat sun_moon_position_city_view = 0.0f;
+GLfloat sun_moon_speed_city_view = 0.01f;
 
-GLfloat cloudPosition = 0.0f;
-GLfloat cloudSpeed = 0.01f;
+GLfloat cloudPositionCityView = 0.0f;
+GLfloat cloudSpeedCityView = 0.01f;
+
 GLfloat firstCarPosition = 1.0f;
 GLfloat secondCarPosition = 1.2f;
 
+
+// Hill View Variables
+GLfloat sun_moon_position_hill_view = 0.0f;
+GLfloat sun_moon_speed_hill_view = 0.01f;
+
+// Shared Variables
+// Boolean Variables used for changing between day & night
 bool day = true;
 bool night = false;
-GLfloat sceneryChangeTimer = 1.0f;
-float changeskycolor = 1.0f;
+
+// Scene Change Variables
+// Boolean Variables used for changing between scenes
+bool showFirstScene = true;
+bool showSecondScene = false;
+
 
 void mouseHandler(int button, int state, int mousex, int mousey)
 {
@@ -47,16 +66,16 @@ void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    if (sceneryChangeTimer > 0)
+    if (showFirstScene)
     {
         if(day)
         {
             glLoadIdentity();
             glPushMatrix();
 
-            drawSkyDay();
-            drawSun(sun_moon_position);
-            drawCloud(cloudPosition);
+            drawCityViewSkyDay();
+            drawSunCityView(sun_moon_position_city_view);
+            drawCityViewCloud(cloudPositionCityView);
 
             drawLeftTree();
             drawRightTree();
@@ -71,10 +90,10 @@ void display()
             drawHospital();
             drawPharmacy();
 
-            drawRoad();
-            street_light();
-            drawFirstCar(firstCarPosition);
-            drawSecondCar(secondCarPosition);
+            drawRoadCityView();
+            streetLightCityView();
+            drawFirstCarCityView(firstCarPosition);
+            drawSecondCarCityView(secondCarPosition);
             glPopMatrix();
         }
         // Night Code of Scene 1 will be in the else block
@@ -83,11 +102,11 @@ void display()
             glLoadIdentity();
             glPushMatrix();
 
-            drawSkyNight();
-            drawStars();
-            drawMoon(sun_moon_position);
+            drawCityViewSkyNight();
+            drawCityViewStars();
+            drawMoonCityView(sun_moon_position_city_view);
 
-            drawCloudNight(cloudPosition);
+            drawCityViewCloudNight(cloudPositionCityView);
 
             drawLeftTree();
             drawRightTree();
@@ -102,16 +121,16 @@ void display()
             drawHospital();
             drawPharmacy();
 
-            drawRoad();
-            street_light();
-            drawFirstCar(firstCarPosition);
-            drawSecondCar(secondCarPosition);
+            drawRoadCityView();
+            streetLightCityView();
+            drawFirstCarCityView(firstCarPosition);
+            drawSecondCarCityView(secondCarPosition);
 
             glPopMatrix();
         }
     }
 
-    if (sceneryChangeTimer > 200)
+    if (showSecondScene)
     {
         //glScissor(0,0,1.0f,1.0f);
         glEnable(GL_SCISSOR_TEST);
@@ -122,24 +141,49 @@ void display()
         glClear(GL_DOUBLEBUFFER);
         glClear(GL_POLYGON);
 
-        glLoadIdentity();
-        glPushMatrix();
+        // Day view of hill
+        if(day){
+            glLoadIdentity();
+            glPushMatrix();
 
-        drawSea();
-        drawShip();
+            drawHillViewSkyDay();
+            drawSunHillView(sun_moon_position_hill_view);
 
-        glPopMatrix();
+            drawHills();
+            drawLand();
+
+            drawResturant1();
+            drawResturant2();
+
+            drawRoadHillView();
+            drawSea();
+            drawShip();
+
+            glPopMatrix();
+        }
+        // Night view of Hill
+        else if(night){
+
+            glLoadIdentity();
+            glPushMatrix();
+
+            drawHillViewSkyNight();
+            drawHillViewStars();
+            drawMoonHillView(sun_moon_position_hill_view);
+
+            drawHills();
+            drawLand();
+
+            drawResturant1();
+            drawResturant2();
+
+            drawSea();
+            drawShip();
+
+            glPopMatrix();
+        }
     }
-
-    if(sceneryChangeTimer > 400)
-    {
-        //sceneryChangeTimer = 1.0f;
-        exit(0); // Exit the application
-    }
-
-    sceneryChangeTimer++;
     //drawAxis();
-    //cout<<"Sceneary Change Timer : " << sceneryChangeTimer << endl;
     glFlush();
 }
 
@@ -147,12 +191,12 @@ void update(int value)
 {
     glutPostRedisplay();
 
-    sun_moon_position -= sun_moon_speed;
-    cloudPosition += cloudSpeed;
+    sun_moon_position_city_view -= sun_moon_speed_city_view;
+    cloudPositionCityView += cloudSpeedCityView;
 
-    if(sun_moon_position < -1.2f)
+    if(sun_moon_position_city_view < -1.2f)
     {
-        sun_moon_position = 1.01f;
+        sun_moon_position_city_view = 1.01f;
         if(day)
         {
             day = false;
@@ -163,8 +207,23 @@ void update(int value)
         }
     }
 
-    if(cloudPosition > 2.1f)
-        cloudPosition = -1.5f;
+    sun_moon_position_hill_view -= sun_moon_speed_hill_view;
+    if(sun_moon_position_hill_view < -1.2f){
+        sun_moon_position_hill_view = 1.01f;
+        /*
+        if(day)
+        {
+            day = false;
+            night = true;
+        }else if(night){
+            night = false;
+            day = true;
+        }
+        */
+    }
+
+    if(cloudPositionCityView > 2.1f)
+        cloudPositionCityView = -1.5f;
 
     if(firstCarPosition > 1.5f){
         firstCarPosition = -1.5f;
@@ -187,11 +246,21 @@ void update(int value)
 void handleKeypress(unsigned char key, int x, int y)
 {
     if(key == 'n'){
+        // night view
         night = true;
         day = false;
     }else if(key == 'd'){
+        // day view
         day = true;
         night = false;
+    }else if (key == 'h'){
+        // Hill View (Scene 2)
+        showFirstScene = false;
+        showSecondScene = true;
+    }else if(key == 'c'){
+        // City View (Scene 1)
+        showFirstScene = true;
+        showSecondScene = false;
     }
 }
 

@@ -48,6 +48,14 @@
 		<Unit filename="Scene_1_Sky.h" />
 		<Unit filename="Scene_1_Sun_Moon.h" />
 		<Unit filename="Scene_1_Tree_Bushes.h" />
+		<Unit filename="Scene_2_Hill.h" />
+		<Unit filename="Scene_2_Land.h" />
+		<Unit filename="Scene_2_Restaurant.h" />
+		<Unit filename="Scene_2_Road_Cars.h" />
+		<Unit filename="Scene_2_Sea.h" />
+		<Unit filename="Scene_2_Ship.h" />
+		<Unit filename="Scene_2_Sky.h" />
+		<Unit filename="Scene_2_Sun_Moon.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="utilities.h" />
 		<Extensions>

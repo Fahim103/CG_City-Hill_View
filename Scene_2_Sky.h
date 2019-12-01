@@ -1,39 +1,36 @@
-#include "utilities.h"
-
-void drawCityViewSkyDay()
+void drawHillViewSkyDay()
 {
     glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+    glLoadIdentity();
     glPushMatrix();
-        // This is the sky.
+    glColor3ub(77,195,255);
         glBegin(GL_QUADS);
-            glColor3ub(77,195,255);
-            glVertex2f(-1.0f, -0.4f);
-            glVertex2f(-1.0f, 1.0f);
+            glVertex2f(-1.0f, 0.44f);
+            glVertex2f(1.0f, 0.44f);
             glVertex2f(1.0f, 1.0f);
-            glVertex2f(1.0f, -0.4f);
+            glVertex2f(-1.0f, 1.0f);
         glEnd();
     glPopMatrix();
 }
 
 
-void drawCityViewSkyNight()
+void drawHillViewSkyNight()
 {
     glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
     glPushMatrix();
         // This is the sky.
+        glColor3ub(44, 66, 105);
         glBegin(GL_QUADS);
-            glColor3ub(44, 66, 105);
-            glVertex2f(-1.0f, -0.4f);
-            glVertex2f(-1.0f, 1.0f);
+            glVertex2f(-1.0f, 0.44f);
+            glVertex2f(1.0f, 0.44f);
             glVertex2f(1.0f, 1.0f);
-            glVertex2f(1.0f, -0.4f);
+            glVertex2f(-1.0f, 1.0f);
         glEnd();
     glPopMatrix();
 }
 
-void drawCityViewStars()
+void drawHillViewStars()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -130,7 +127,7 @@ void drawCityViewStars()
     glPopMatrix();
 }
 
-void drawCityViewCloud(float speed)
+void drawHillViewCloud(float speed)
 {
 	glLoadIdentity();
 	glTranslatef(speed, 0.0f, 0.0f);
@@ -156,7 +153,7 @@ void drawCityViewCloud(float speed)
     glPopMatrix();
 }
 
-void drawCityViewCloudNight(float speed)
+void drawHillViewCloudNight(float speed)
 {
 	glLoadIdentity();
 	glTranslatef(speed, 0.0f, 0.0f);

@@ -1,4 +1,4 @@
-void drawRoad()
+void drawRoadCityView()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -161,7 +161,7 @@ void drawRoad()
 
 }
 
-void drawFirstCar(float firstCarPosition)
+void drawFirstCarCityView(float firstCarPosition)
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -241,7 +241,7 @@ void drawFirstCar(float firstCarPosition)
 
 }
 
-void drawSecondCar(float secondCarPosition)
+void drawSecondCarCityView(float secondCarPosition)
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -327,14 +327,14 @@ void drawSecondCar(float secondCarPosition)
 }
 
 
-void street_light()
+void streetLightCityView()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     glPushMatrix();
 
-        //First_street_light
+        //First_streetLightCityView
         glBegin(GL_POLYGON);
         glColor3ub(150,148,146);
 
@@ -367,7 +367,7 @@ void street_light()
 
 
 
-        //Second_street_light
+        //Second_streetLightCityView
         glBegin(GL_POLYGON);
         glColor3ub(150,148,146);
 
