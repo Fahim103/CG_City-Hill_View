@@ -47,6 +47,12 @@ GLfloat fourthCarPosition = 0.5f;
 GLfloat sun_moon_position_hill_view = 0.0f;
 GLfloat sun_moon_speed_hill_view = 0.01f;
 
+GLfloat firstBusPosition = 1.1f;
+GLfloat firstPickupPosition = 1.2f;
+GLfloat secondPickupPosition = -0.2f;
+GLfloat secondBusPosition = -0.3f;
+
+
 // Shared Variables
 // Boolean Variables used for changing between day & night
 bool day = true;
@@ -163,6 +169,11 @@ void display()
             drawResturant2();
 
             drawRoadHillView();
+            drawFirstBus(firstBusPosition);
+            drawSecondBus(secondBusPosition);
+            drawFirstPickup(firstPickupPosition);
+            drawSecondPickup(secondPickupPosition);
+
             drawSea();
             drawShip();
 
@@ -253,6 +264,27 @@ void update(int value)
 	secondCarPosition -= 0.08f;
 	thirdCarPosition += 0.05f;
     fourthCarPosition -= 0.05f;
+
+    if(firstBusPosition > 1.5){
+        firstBusPosition = -1.5f;
+    }
+
+    if(secondBusPosition  < -1.5){
+        secondBusPosition = 1.5f;
+    }
+
+    if(firstPickupPosition < -1.5){
+        firstPickupPosition = 1.5f;
+    }
+
+    if(secondPickupPosition > 1.5){
+        secondPickupPosition  = -1.5f;
+    }
+
+    firstBusPosition += 0.08f;
+    secondBusPosition -= 0.05f;
+    firstPickupPosition -= 0.08f;
+    secondPickupPosition += 0.05f;
 
 	glutTimerFunc(100, update, 0);
 
