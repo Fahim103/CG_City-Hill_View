@@ -8,8 +8,6 @@
 #include<cmath>
 #include<string>
 
-// Add the Header Files
-
 // Scene 1 Header Files
 #include "Scene_1_Sky.h" // This file includes the utilities header, so subsequent files can use utilities as well without including
 #include "Scene_1_Left_Buildings.h"
@@ -23,7 +21,7 @@
 #include "Scene_2_Sun_Moon.h"
 #include "Scene_2_Sea.h"
 #include "Scene_2_Ship.h"
-#include "Scene_2_Restaurant.h"
+#include "Scene_2_Restaurant_Booth.h"
 #include "Scene_2_Hill.h"
 #include "Scene_2_Land.h"
 #include "Scene_2_Road_Cars.h"
@@ -55,12 +53,10 @@ GLfloat secondBusPosition = -0.3f;
 GLfloat shipPosition = 0.0f;
 
 
-// Shared Variables
 // Boolean Variables used for changing between day & night
 bool day = true;
 bool night = false;
 
-// Scene Change Variables
 // Boolean Variables used for changing between scenes
 bool showFirstScene = true;
 bool showSecondScene = false;
@@ -168,6 +164,7 @@ void display()
             drawLand();
 
             drawRestaurant();
+            drawBooth();
             drawResturant2();
 
             drawRoadHillView();
@@ -195,9 +192,15 @@ void display()
             drawLand();
 
             drawRestaurant();
+            drawBooth();
             drawResturant2();
 
             drawRoadHillView();
+            drawFirstBus(firstBusPosition);
+            drawSecondBus(secondBusPosition);
+            drawFirstPickup(firstPickupPosition);
+            drawSecondPickup(secondPickupPosition);
+
             drawSea();
             drawShip(shipPosition);
 
