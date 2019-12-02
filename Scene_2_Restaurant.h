@@ -1,4 +1,4 @@
-void drawResturant1()
+void drawRestaurant()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -31,7 +31,7 @@ void drawResturant1()
     glEnd();
 
     glColor3ub(0,0,0);
-    drawString(0.65f,0.58f,"Resturant");
+    drawString(0.65f,0.58f,"Restaurant");
 
     //mirror
     glColor3ub(230,168,62);
