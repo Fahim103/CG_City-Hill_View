@@ -3,6 +3,7 @@ void drawRoadHillView()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glPushMatrix();
+        // Main Road
         glColor3f(0.4f, 0.4f, 0.4f);
         glBegin(GL_QUADS);
             glVertex2f(-1.0f, -0.4f);
@@ -11,6 +12,7 @@ void drawRoadHillView()
             glVertex2f(-1.0f,0.2f);
         glEnd();
 
+        // Middle lines of the roads to differentiate lanes
         glColor3f(1.0f, 1.0f, 1.0f);
         float xDifference = 0.0;
         for(int i=0; i<10; i++){
