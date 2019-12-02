@@ -52,6 +52,8 @@ GLfloat firstPickupPosition = 1.2f;
 GLfloat secondPickupPosition = -0.2f;
 GLfloat secondBusPosition = -0.3f;
 
+GLfloat shipPosition = 0.0f;
+
 
 // Shared Variables
 // Boolean Variables used for changing between day & night
@@ -175,7 +177,7 @@ void display()
             drawSecondPickup(secondPickupPosition);
 
             drawSea();
-            drawShip();
+            drawShip(shipPosition);
 
             glPopMatrix();
         }
@@ -197,7 +199,7 @@ void display()
 
             drawRoadHillView();
             drawSea();
-            drawShip();
+            drawShip(shipPosition);
 
             glPopMatrix();
         }
@@ -281,10 +283,16 @@ void update(int value)
         secondPickupPosition  = -1.5f;
     }
 
+    if(shipPosition < -1.5){
+        shipPosition = 1.5f;
+    }
+
     firstBusPosition += 0.08f;
     secondBusPosition -= 0.05f;
     firstPickupPosition -= 0.08f;
     secondPickupPosition += 0.05f;
+
+    shipPosition -= 0.009f;
 
 	glutTimerFunc(100, update, 0);
 
