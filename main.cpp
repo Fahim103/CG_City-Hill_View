@@ -39,6 +39,8 @@ GLfloat cloudSpeedCityView = 0.01f;
 
 GLfloat firstCarPosition = 1.0f;
 GLfloat secondCarPosition = 1.2f;
+GLfloat thirdCarPosition = -0.2f;
+GLfloat fourthCarPosition = 0.5f;
 
 
 // Hill View Variables
@@ -94,6 +96,9 @@ void display()
             streetLightCityView();
             drawFirstCarCityView(firstCarPosition);
             drawSecondCarCityView(secondCarPosition);
+            drawThirdCarCityView(thirdCarPosition);
+            drawFourthCarCityView(fourthCarPosition);
+
             glPopMatrix();
         }
         // Night Code of Scene 1 will be in the else block
@@ -125,6 +130,8 @@ void display()
             streetLightCityView();
             drawFirstCarCityView(firstCarPosition);
             drawSecondCarCityView(secondCarPosition);
+            drawThirdCarCityView(thirdCarPosition);
+            drawFourthCarCityView(fourthCarPosition);
 
             glPopMatrix();
         }
@@ -152,7 +159,7 @@ void display()
             drawHills();
             drawLand();
 
-            drawResturant1();
+            drawRestaurant();
             drawResturant2();
 
             drawRoadHillView();
@@ -174,7 +181,7 @@ void display()
             drawHills();
             drawLand();
 
-            drawResturant1();
+            drawRestaurant();
             drawResturant2();
 
             drawRoadHillView();
@@ -234,8 +241,19 @@ void update(int value)
         secondCarPosition = 1.5f;
     }
 
+    if(thirdCarPosition  > 1.5){
+        thirdCarPosition  = -1.5f;
+    }
+
+    if(fourthCarPosition < -1.5){
+        fourthCarPosition = 1.5f;
+    }
+
     firstCarPosition += 0.1f;
 	secondCarPosition -= 0.08f;
+	thirdCarPosition += 0.05f;
+    fourthCarPosition -= 0.05f;
+
 	glutTimerFunc(100, update, 0);
 
 }

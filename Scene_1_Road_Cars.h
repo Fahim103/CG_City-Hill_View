@@ -254,62 +254,229 @@ void drawSecondCarCityView(float secondCarPosition)
     glPopMatrix();
 }
 
-
-void streetLightCityView()
+void drawThirdCarCityView(float thirdCarPosition)
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     glPushMatrix();
+    glTranslatef(thirdCarPosition,0.0f, 0.0f);
+        //above part
+        glBegin(GL_POLYGON);
+        glColor3ub(2,91,38);
 
-        //First_streetLightCityView
+        glVertex2f(-0.63f,-0.49f);
+        glVertex2f(-0.45f,-0.49f);
+        glVertex2f(-0.43f,-0.58f);
+        glVertex2f(-0.65f,-0.58f);
+
+            glEnd();
+        //right window
+        glBegin(GL_POLYGON);
+        glColor3ub(244,233,140);
+
+        glVertex2f(-0.53f,-0.50f);
+        glVertex2f(-0.46f,-0.50f);
+        glVertex2f(-0.45f,-0.57f);
+        glVertex2f(-0.53f,-0.57f);
+
+            glEnd();
+
+        //left window
+        glBegin(GL_POLYGON);
+        glColor3ub(244,233,140);
+
+        glVertex2f(-0.55f,-0.50f);
+        glVertex2f(-0.62f,-0.50f);
+        glVertex2f(-0.63f,-0.57f);
+        glVertex2f(-0.55f,-0.57f);
+
+            glEnd();
+
+
+        //bottom part
+        glBegin(GL_POLYGON);
+        glColor3ub(8,169,181);
+
+        glVertex2f(-0.70f,-0.58f);
+        glVertex2f(-0.38f,-0.58f);
+        glVertex2f(-0.38f,-0.65f);
+        glVertex2f(-0.70f,-0.65f);
+
+            glEnd();
+
+
+        //CHAKA_01
+        glBegin(GL_POLYGON);
+        glColor3ub(40,37,37);
+
+        float theta;
+        int i;
+        for(i=0;i<360;i++)
+            {
+            theta= i*3.142/180;
+            glVertex2f(-0.63+0.03*sin(theta),-0.65+0.03*cos(theta));
+
+            }
+        glEnd();
+
+          //CHAKA_02
+        glBegin(GL_POLYGON);
+        glColor3ub(40,37,37);
+
+        for(i=0;i<360;i++)
+            {
+            theta= i*3.142/180;
+            glVertex2f(-0.45+0.03*sin(theta),-0.65+0.03*cos(theta));
+
+            }
+        glEnd();
+
+
+
+
+    glPopMatrix();
+}
+
+
+void drawFourthCarCityView(float fourthCarPosition)
+{
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    glPushMatrix();
+    glTranslatef(fourthCarPosition,0.0f, 0.0f);
+        //above part
+        glBegin(GL_POLYGON);
+        glColor3ub(99,138,234);
+
+        glVertex2f(-0.63f,-0.77f);
+        glVertex2f(-0.45f,-0.77f);
+        glVertex2f(-0.43f,-0.86f);
+        glVertex2f(-0.65f,-0.86f);
+
+            glEnd();
+        //right window
+        glBegin(GL_POLYGON);
+        glColor3ub(74,194,239);
+
+        glVertex2f(-0.53f,-0.78f);
+        glVertex2f(-0.46f,-0.78f);
+        glVertex2f(-0.45f,-0.85f);
+        glVertex2f(-0.53f,-0.85f);
+
+            glEnd();
+
+        //left window
+        glBegin(GL_POLYGON);
+        glColor3ub(74,194,239);
+
+        glVertex2f(-0.55f,-0.78f);
+        glVertex2f(-0.62f,-0.78f);
+        glVertex2f(-0.63f,-0.85f);
+        glVertex2f(-0.55f,-0.85f);
+
+            glEnd();
+
+
+        //bottom part
+        glBegin(GL_POLYGON);
+        glColor3ub(88,63,234);
+
+        glVertex2f(-0.70f,-0.86f);
+        glVertex2f(-0.38f,-0.86f);
+        glVertex2f(-0.38f,-0.93f);
+        glVertex2f(-0.70f,-0.93f);
+
+            glEnd();
+
+
+        //CHAKA_01
+        glBegin(GL_POLYGON);
+        glColor3ub(40,37,37);
+
+        float theta;
+        int i;
+        for(i=0;i<360;i++)
+            {
+            theta= i*3.142/180;
+            glVertex2f(-0.63+0.03*sin(theta),-0.93+0.03*cos(theta));
+
+            }
+        glEnd();
+
+          //CHAKA_02
+        glBegin(GL_POLYGON);
+        glColor3ub(40,37,37);
+
+        for(i=0;i<360;i++)
+            {
+            theta= i*3.142/180;
+            glVertex2f(-0.45+0.03*sin(theta),-0.93+0.03*cos(theta));
+
+            }
+        glEnd();
+
+
+
+
+    glPopMatrix();
+}
+
+void streetLightCityView()
+{
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glPushMatrix();
+        //First_street_light
         glBegin(GL_POLYGON);
         glColor3ub(150,148,146);
             glVertex2f(-0.70f,-0.46f);
             glVertex2f(-0.68f,-0.46f);
-            glVertex2f(-0.68f,0.20f);
-            glVertex2f(-0.70f,0.20f);
+            glVertex2f(-0.68f,0.10f);
+            glVertex2f(-0.70f,0.10f);
         glEnd();
 
         glBegin(GL_POLYGON);
         glColor3ub(47,48,47);
-            glVertex2f(-0.68f,0.20f);
-            glVertex2f(-0.70f,0.20f);
-            glVertex2f(-0.65f,0.35f);
-            glVertex2f(-0.62f,0.35f);
+            glVertex2f(-0.68f,0.10f);
+            glVertex2f(-0.70f,0.10f);
+            glVertex2f(-0.65f,0.22f);
+            glVertex2f(-0.62f,0.22f);
         glEnd();
 
         glBegin(GL_POLYGON);
         glColor3ub(242,195,48);
-            glVertex2f(-0.65f,0.35f);
-            glVertex2f(-0.62f,0.35f);
-            glVertex2f(-0.62f,0.38f);
-            glVertex2f(-0.65f,0.38f);
+            glVertex2f(-0.65f,0.22f);
+            glVertex2f(-0.62f,0.22f);
+            glVertex2f(-0.62f,0.25f);
+            glVertex2f(-0.65f,0.25f);
         glEnd();
 
-        //Second_streetLightCityView
+        //Second_street_light
         glBegin(GL_POLYGON);
         glColor3ub(150,148,146);
             glVertex2f(0.70f,-0.46f);
             glVertex2f(0.68f,-0.46f);
-            glVertex2f(0.68f,0.20f);
-            glVertex2f(0.70f,0.20f);
+            glVertex2f(0.68f,0.10f);
+            glVertex2f(0.70f,0.10f);
         glEnd();
 
         glBegin(GL_POLYGON);
         glColor3ub(47,48,47);
-            glVertex2f(0.68f,0.20f);
-            glVertex2f(0.70f,0.20f);
-            glVertex2f(0.74f,0.35f);
-            glVertex2f(0.71f,0.35f);
+            glVertex2f(0.68f,0.10f);
+            glVertex2f(0.70f,0.10f);
+            glVertex2f(0.74f,0.22f);
+            glVertex2f(0.71f,0.22f);
         glEnd();
 
         glBegin(GL_POLYGON);
         glColor3ub(242,195,48);
-            glVertex2f(0.74f,0.35f);
-            glVertex2f(0.71f,0.35f);
-            glVertex2f(0.71f,0.38f);
-            glVertex2f(0.74f,0.38f);
+            glVertex2f(0.74f,0.22f);
+            glVertex2f(0.71f,0.22f);
+            glVertex2f(0.71f,0.25f);
+            glVertex2f(0.74f,0.25f);
         glEnd();
+
     glPopMatrix();
 }
