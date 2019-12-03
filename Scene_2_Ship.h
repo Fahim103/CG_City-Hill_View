@@ -3,7 +3,7 @@ void drawShip(float shipPosition)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glPushMatrix();
-    glTranslatef(shipPosition, 0, 0);
+    //glTranslatef(shipPosition, 0, 0);
         glBegin(GL_POLYGON);
             glColor3ub(38,38,38);
             glVertex2f(-0.26f,-0.8f);
