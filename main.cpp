@@ -286,8 +286,8 @@ void update(int value)
         secondPickupPosition  = -1.5f;
     }
 
-    if(shipPosition < -1.5){
-        shipPosition = 1.5f;
+    if(shipPosition > 1.5){
+        shipPosition = -1.5f;
     }
 
     firstBusPosition += 0.08f;
@@ -295,7 +295,7 @@ void update(int value)
     firstPickupPosition -= 0.08f;
     secondPickupPosition += 0.05f;
 
-    shipPosition -= 0.009f;
+    shipPosition += 0.009f;
 
 	glutTimerFunc(100, update, 0);
 

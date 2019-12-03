@@ -42,4 +42,3 @@ void drawAxis()
     glEnd();
 
 }
-
