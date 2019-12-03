@@ -62,6 +62,8 @@ bool showFirstScene = true;
 bool showSecondScene = false;
 
 
+GLfloat screenChangeTimer = 0.0f;
+
 void mouseHandler(int button, int state, int mousex, int mousey)
 {
 
@@ -290,6 +292,20 @@ void update(int value)
         shipPosition = -1.5f;
     }
 
+    if(screenChangeTimer <= 200){
+        showFirstScene = true;
+        showSecondScene = false;
+    }else if(screenChangeTimer > 200 && screenChangeTimer <= 470){
+        showSecondScene = true;
+        showFirstScene = false;
+    }else if(screenChangeTimer > 470){
+        screenChangeTimer = 1.0f;
+    }
+
+    cout<<screenChangeTimer<<endl;
+    screenChangeTimer += 1.0f;
+
+
     firstBusPosition += 0.08f;
     secondBusPosition -= 0.05f;
     firstPickupPosition -= 0.08f;
@@ -317,10 +333,12 @@ void handleKeypress(unsigned char key, int x, int y)
         night = false;
     }else if (key == 'h'){
         // Hill View (Scene 2)
+        screenChangeTimer = 201.0f;
         showFirstScene = false;
         showSecondScene = true;
     }else if(key == 'c'){
         // City View (Scene 1)
+        screenChangeTimer = 1.0f;
         showFirstScene = true;
         showSecondScene = false;
     }
