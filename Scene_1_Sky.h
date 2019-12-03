@@ -168,13 +168,13 @@ void drawCityViewCloudNight(float speed)
         drawCircle(-0.50f, 0.7f, 0.06f);
         drawCircle(-0.55f, 0.65f, 0.06f);
 
-        glColor3ub(255, 255, 240);
+        glColor3ub(82, 105, 137);
         drawCircle(0.7f, 0.7f, 0.06f);
         drawCircle(0.65f, 0.75f, 0.06f);
         drawCircle(0.60f, 0.7f, 0.06f);
         drawCircle(0.65f, 0.65f, 0.06f);
 
-        glColor3ub(255, 255, 240);
+        glColor3ub(82, 105, 137);
         drawCircle(0.0f, 0.7f, 0.06f);
         drawCircle(0.05f, 0.75f, 0.06f);
         drawCircle(0.10f, 0.7f, 0.06f);
