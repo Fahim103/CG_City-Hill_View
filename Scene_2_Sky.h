@@ -5,8 +5,8 @@ void drawHillViewSkyDay()
     glPushMatrix();
     glColor3ub(77,195,255);
         glBegin(GL_QUADS);
-            glVertex2f(-1.0f, 0.44f);
-            glVertex2f(1.0f, 0.44f);
+            glVertex2f(-1.0f, 0.2f);
+            glVertex2f(1.0f, 0.2f);
             glVertex2f(1.0f, 1.0f);
             glVertex2f(-1.0f, 1.0f);
         glEnd();
