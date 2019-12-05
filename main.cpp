@@ -99,7 +99,7 @@ void display()
             drawPharmacy();
 
             drawRoadCityView();
-            streetLightCityView();
+            streetLightDayCityView();
             drawFirstCarCityView(firstCarPosition);
             drawSecondCarCityView(secondCarPosition);
             drawThirdCarCityView(thirdCarPosition);
@@ -133,7 +133,8 @@ void display()
             drawPharmacy();
 
             drawRoadCityView();
-            streetLightCityView();
+            streetLightNightCityView();
+
             drawFirstCarCityView(firstCarPosition);
             drawSecondCarCityView(secondCarPosition);
             drawThirdCarCityView(thirdCarPosition);

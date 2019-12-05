@@ -423,7 +423,7 @@ void drawFourthCarCityView(float fourthCarPosition)
     glPopMatrix();
 }
 
-void streetLightCityView()
+void streetLightDayCityView()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -479,4 +479,110 @@ void streetLightCityView()
         glEnd();
 
     glPopMatrix();
+}
+
+void streetLightNightCityView()
+{
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    glPushMatrix();
+
+        //First_street_light
+        glBegin(GL_POLYGON);
+        glColor3ub(150,148,146);
+
+        glVertex2f(-0.70f,-0.46f);
+        glVertex2f(-0.68f,-0.46f);
+        glVertex2f(-0.68f,0.10f);
+        glVertex2f(-0.70f,0.10f);
+
+            glEnd();
+
+        glBegin(GL_POLYGON);
+        glColor3ub(47,48,47);
+
+        glVertex2f(-0.68f,0.10f);
+        glVertex2f(-0.70f,0.10f);
+        glVertex2f(-0.65f,0.22f);
+        glVertex2f(-0.62f,0.22f);
+
+            glEnd();
+
+        glBegin(GL_POLYGON);
+        glColor3ub(242,195,48);
+
+        glVertex2f(-0.65f,0.22f);
+        glVertex2f(-0.62f,0.22f);
+        glVertex2f(-0.62f,0.25f);
+        glVertex2f(-0.65f,0.25f);
+
+            glEnd();
+
+        glBegin(GL_POLYGON);
+        glColor3ub(242,15,8);
+
+        glColor3ub(239,217,20);
+        glVertex2f(-0.62f,0.22f);
+        glVertex2f(0.71f,0.22f);
+        glVertex2f(-0.65f,0.22f);
+        glColor3ub(116,117,117);
+        glVertex2f(-0.75f,-0.47f);
+        glColor3ub(116,117,117);
+        glVertex2f(-0.52f,-0.47f);
+
+            glEnd();
+
+
+
+        //Second_street_light
+        glBegin(GL_POLYGON);
+        glColor3ub(150,148,146);
+
+        glVertex2f(0.70f,-0.46f);
+        glVertex2f(0.68f,-0.46f);
+        glVertex2f(0.68f,0.10f);
+        glVertex2f(0.70f,0.10f);
+
+            glEnd();
+
+        glBegin(GL_POLYGON);
+        glColor3ub(47,48,47);
+
+        glVertex2f(0.68f,0.10f);
+        glVertex2f(0.70f,0.10f);
+        glVertex2f(0.74f,0.22f);
+        glVertex2f(0.71f,0.22f);
+
+            glEnd();
+
+        glBegin(GL_POLYGON);
+        glColor3ub(242,195,48);
+
+        glVertex2f(0.74f,0.22f);
+        glVertex2f(0.71f,0.22f);
+        glVertex2f(0.71f,0.25f);
+        glVertex2f(0.74f,0.25f);
+
+            glEnd();
+
+        glBegin(GL_POLYGON);
+
+        glColor3ub(239,217,20);
+        glVertex2f(0.74f,0.22f);
+        glColor3ub(242,222,81);
+        glVertex2f(0.71f,0.22f);
+        glColor3ub(140,139,129);
+        glVertex2f(0.61f,-0.47f);
+        glColor3ub(116,117,117);
+        glVertex2f(0.84f,-0.47f);
+
+
+            glEnd();
+
+
+
+
+     glPopMatrix();
+
 }
