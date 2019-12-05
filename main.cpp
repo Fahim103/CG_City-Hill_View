@@ -114,7 +114,7 @@ void display()
             glPushMatrix();
 
             drawCityViewSkyNight();
-            drawCityViewStars();
+            drawCityViewNightStars();
             drawMoonCityView(sun_moon_position_city_view);
 
             drawCityViewCloudNight(cloudPositionCityView);

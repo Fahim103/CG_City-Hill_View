@@ -33,7 +33,7 @@ void drawCityViewSkyNight()
     glPopMatrix();
 }
 
-void drawCityViewStars()
+void drawCityViewNightStars()
 {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
