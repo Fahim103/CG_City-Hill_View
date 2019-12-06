@@ -358,7 +358,7 @@ int main(int argc, char** argv)
     glutInit(&argc, argv);
     glutInitWindowSize(1280, 720);
     glutInitWindowPosition(0, 0);
-    glutCreateWindow("CITY VIEW");
+    glutCreateWindow("CITY & HILL VIEW");
     glutDisplayFunc(display);
 
     glutKeyboardFunc(handleKeypress);
