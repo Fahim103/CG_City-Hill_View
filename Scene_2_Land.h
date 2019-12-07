@@ -16,7 +16,6 @@ void drawBackgroundMaskOfLand()
 
 void drawLand()
 {
-
     drawBackgroundMaskOfLand();
 
     glMatrixMode(GL_PROJECTION);

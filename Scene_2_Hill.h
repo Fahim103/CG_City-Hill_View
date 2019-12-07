@@ -37,6 +37,5 @@ void drawHills()
     glVertex2f(1.0f,0.74f);
     glEnd();
 
-
     glPopMatrix();
 }
