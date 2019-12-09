@@ -6,7 +6,7 @@ void drawSunCityView(float speed)
 	glLoadIdentity();
 	glTranslatef(0.0f, speed, 0.0f);
     glPushMatrix();
-        glColor3ub(255, 255, 0);
+        glColor3ub(252, 212, 64);
         drawCircle(0.0f, 0.8f, 0.09f);
     glPopMatrix();
 }
